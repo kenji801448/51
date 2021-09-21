@@ -22,22 +22,20 @@ int main () {
     printf("0到99，猜一個數字。");
 
     //get input
-    scanf("%d", &guess);
-
-    while (guess != answer) { //go on if not correct
-        counter++;
-        printf("你猜的是︰%d，", guess);
-        if (guess > answer) {
-            printf("低一點。");
-        } else {
-            printf("高一點。");
+    //continue if the input is integer
+    while (scanf("%d", &guess)) {
+        if (guess == answer) { //if you have got the answer
+            printf("你猜的是︰%d，恭喜猜中了。一共猜了%d次。\n", guess, counter);
+            return 0;
+        } else { //go on if not correct
+            counter++;
+            printf("你猜的是︰%d，", guess);
+            if (guess > answer) {
+                printf("低一點。");
+            } else {
+                printf("高一點。");
+            }
         }
-        //get input
-        scanf("%d", &guess);
     }
-
-    //if you have got the answer
-    printf("你猜的是︰%d，恭喜猜中了。一共猜了%d次。\n", guess, counter);
-    
-    return 0;
+    printf("你輸入的不是數字。");
 }
