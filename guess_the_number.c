@@ -1,3 +1,7 @@
+/*
+ * the following code snippet is modified from this website
+ * https://www.cplusplus.com/reference/cstdlib/rand/
+ **/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -15,7 +19,7 @@ int main () {
     int counter = 0;
 
     //prompt message
-    printf("0到100，猜一個數字。");
+    printf("0到99，猜一個數字。");
 
     //get input
     scanf("%d", &guess);
@@ -31,9 +35,9 @@ int main () {
         //get input
         scanf("%d", &guess);
     }
-    printf("你猜的是︰%d，", guess);
-    printf("恭喜猜中了。");
-    printf("一共猜了%d次。\n", counter);
+
+    //if you have got the answer
+    printf("你猜的是︰%d，恭喜猜中了。一共猜了%d次。\n", guess, counter);
     
     return 0;
 }
