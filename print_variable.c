@@ -6,7 +6,7 @@ int main() {
     for (int j = 5; j < 23; j++) {
         //give me some output messages in following format
         //and that can be done by add only ONE line code.
-        //please refer to Google slides, page 22.
+        //please refer to Google slides, page 14.
         //j=5, b=435
         //j=6, b=522
         //j=7, b=609
