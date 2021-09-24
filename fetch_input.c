@@ -28,6 +28,8 @@ int main() {
     int d = 0;
     int e = 0;
 
+    printf("請輸入五個數字，以空白隔開。\n");
+    scanf("%d%d%d%d%d", &a, &b, &c, &d, &e);
     //add scanf code to get data from input
     //and feed those input into a, b, c, d, e, respectively.
 
