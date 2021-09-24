@@ -2,5 +2,5 @@
 
 main() {
 
-    printf("小白癡\n");
+    printf("小白\n");
 }
