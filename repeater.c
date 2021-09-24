@@ -4,7 +4,7 @@ int main() {
     
     int input;
 
-    printf("\n");
+    printf("每輸入一個數字，程式會再。\n");
     //fill some condition into the following while loop
     //only ONE line code is you need
     //please refer page 4 of homework request
