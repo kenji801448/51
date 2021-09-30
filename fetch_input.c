@@ -11,6 +11,8 @@ int main() {
     printf("請輸入五個數字，以空白隔開。\n");
     //add scanf code to get data from input
     //and feed those input into a, b, c, d, e, respectively.
+    //only ONE line code is you need
+    //please refer page 18 of slides
 
     printf("a=%d\n", a);
     printf("b=%d\n", b);
