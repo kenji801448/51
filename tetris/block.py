@@ -210,4 +210,3 @@ class Block(object):
             if len(collist):
                 return True
         return False
-
