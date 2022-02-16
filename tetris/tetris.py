@@ -98,7 +98,8 @@ class Tetris(object):
                 if ev.key in [pygame.K_x, pygame.K_UP]:
                     self.active_block.rotate()
                 if ev.key == pygame.K_SPACE:
-                    self.active_block.move(0,constants.BHEIGHT*(self.get_remaining_height_active_block() - self.active_block.h + 1))
+                    diff = self.get_active_block_diff_to_fixed_block_in_resolution()
+                    self.active_block.move(0,int(min(diff.values()) / constants.BHEIGHT) * constants.BHEIGHT )
                 if ev.key == pygame.K_p:
                     self.pause()
        
@@ -332,13 +333,70 @@ class Tetris(object):
             self.blk_list.append(self.active_block)
             self.new_block = False
 
-    def get_remaining_height_active_block(self):
-        return min([int((self.resy - rect.y - constants.BOARD_HEIGHT) / constants.BHEIGHT) for rect in self.active_block.shape])
+    def get_active_block_bottom_block_height_in_resolution(self):
+        height = {}
+        for rect in self.active_block.shape:
+            try:
+                if height[rect.x] < rect.y:
+                    height[rect.x] = rect.y
+            except KeyError:
+                height[rect.x] = rect.y
+        return height
+
+    def is_lower_than_active_block(self, r):
+        for rect in self.active_block.shape:
+            if r.y < rect.y:
+                return False
+        return True
+
+    def get_fixed_blocks_top_block_height_in_resolution(self):
+        d = {}
+        for blocks in self.blk_list:
+            if self.active_block != blocks:
+                for rect in blocks.shape:
+                    if self.is_lower_than_active_block(rect):
+                        try:
+                            if d[rect.x] > rect.y: #renew height
+                                d[rect.x] = rect.y
+                        except KeyError: #append height
+                            d[rect.x] = rect.y
+        return d
+
+    def get_active_block_diff_to_fixed_block_in_resolution(self):
+        diff = {}
+        act = self.get_active_block_bottom_block_height_in_resolution()
+        fix = self.get_fixed_blocks_top_block_height_in_resolution()
+        bottom_height = self.resy - constants.BOARD_UP_MARGIN
+
+        for x in act.keys():
+            try: #to the fix block top
+                diff[x] = fix[x] - act[x] - constants.MESH_WIDTH
+            except KeyError: #to the screen bottom
+                diff[x] = bottom_height - act[x]
+        return diff
+
+    def get_active_block_bottom_remaining_height_in_resolution(self):
+        bottom_height = self.resy - constants.BOARD_UP_MARGIN
+        h_dict = self.get_fixed_blocks_top_block_height_in_resolution()
+        for rect in self.active_block.shape:
+            try:
+                diff = h_dict[rect.x] - rect.y
+            except KeyError:
+                diff = self.resy - constants.BOARD_UP_MARGIN - rect.y
+            if remaining_height > diff:
+                remaining_height = diff
+        return int(remaining_height / constants.BHEIGHT) - self.active_block.h
 
     def draw_aiming(self):
-        shadow_block = block.Block(self.active_block.data, self.active_block.x, self.get_remaining_height_active_block()*constants.BHEIGHT, self.screen, constants.GREEN, self.active_block.rotate_en)
-        print(f"shadow_block={shadow_block}")
-        shadow_block.draw()
+        diff = self.get_active_block_diff_to_fixed_block_in_resolution()
+        diff_min = self.resy
+        for bl in self.active_block.shape:
+            if diff_min > diff[bl.x]:
+                diff_min = diff[bl.x]
+        for bl in self.active_block.shape:
+            shadow = bl.copy()
+            shadow.y += int(diff_min / constants.BHEIGHT) * constants.BHEIGHT
+            pygame.draw.rect(self.screen, constants.GREEN, shadow)
 
     def draw_game(self):
         """
@@ -350,8 +408,7 @@ class Tetris(object):
         self.draw_board()
         for blk in self.blk_list:
             blk.draw()
-
-        #self.draw_aiming()
+        self.draw_aiming()
         # Draw the screen buffer
         pygame.display.flip()
 
