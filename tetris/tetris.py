@@ -163,7 +163,7 @@ class Tetris(object):
         """
         Print the current state line
         """
-        string = ["{0:<10} {1:>4}x".format(self.score,self.speed)]
+        string = ["{0:<10}".format(self.score)]
         self.print_text(string,constants.POINT_MARGIN,constants.POINT_MARGIN)        
 
     def print_game_over(self):
@@ -233,7 +233,7 @@ class Tetris(object):
         # Border logic, check if we colide with down border or any
         # other border. This check also includes the detection with other tetris blocks. 
         down_board  = self.active_block.check_collision([self.board_down])
-        any_border  = self.active_block.check_collision([self.board_left,self.board_up,self.board_right])
+        any_border  = self.active_block.check_collision([self.board_left,self.board_right])
         block_any   = self.block_colides()
         # Restore the configuration if any collision was detected
         if down_board or any_border or block_any:
@@ -275,11 +275,13 @@ class Tetris(object):
             # Update the score.
             self.score += self.blocks_in_line * constants.POINT_VALUE 
             # Check if we need to speed up the game. If yes, change control variables
+            """
             if self.score > self.score_level:
                 self.score_level *= constants.SCORE_LEVEL_RATIO
                 self.speed       *= constants.GAME_SPEEDUP_RATIO
                 # Change the game speed
                 self.set_move_timer()
+            """
 
     def remove_line(self,y):
         """
@@ -396,7 +398,7 @@ class Tetris(object):
         for bl in self.active_block.shape:
             shadow = bl.copy()
             shadow.y += int(diff_min / constants.BHEIGHT) * constants.BHEIGHT
-            pygame.draw.rect(self.screen, constants.GREEN, shadow)
+            pygame.draw.rect(self.screen, constants.WHITE, shadow)
 
     def draw_game(self):
         """
@@ -406,9 +408,9 @@ class Tetris(object):
         # all tetris blocks
         self.screen.fill(constants.BLACK)
         self.draw_board()
+        self.draw_aiming()
         for blk in self.blk_list:
             blk.draw()
-        self.draw_aiming()
         # Draw the screen buffer
         pygame.display.flip()
 
