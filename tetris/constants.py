@@ -33,7 +33,6 @@ BOARD_MARGIN     = 2
 height = {}
 height['screen'] = screeninfo.get_monitors()[0].height
 height['pure'] = height['screen'] - BOARD_HEIGHT*2 - BOARD_UP_MARGIN - BOARD_UP_MARGIN*2
-print(f"pure={height['pure']}")
 
 # Configuration of building shape block
 # Height of the shape block
@@ -42,7 +41,6 @@ BHEIGHT    = int(height['pure'] / 20)
 BWIDTH     = BHEIGHT
 # Width of the line around the block
 MESH_WIDTH = 1
-print(f"BHEIGHT={BHEIGHT}")
 
 # Color declarations in the RGB notation
 WHITE    = (255,255,255)
