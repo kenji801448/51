@@ -12,7 +12,7 @@ int main() {
     //add scanf code to get data from input
     //and feed those input into a, b, c, d, e, respectively.
     //only ONE line code is you need
-    //please refer page 18 of slides
+    //please refer page 18 of stdio.h slides
 
     printf("a=%d\n", a);
     printf("b=%d\n", b);
