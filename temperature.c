@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 main() {
     int c;
     scanf("%d",&c);
