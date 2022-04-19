@@ -12,7 +12,7 @@ double power(double x, int q) {
         //HERE
         //this line should do some operation to achieve multiplications
         //only ONE line to be ADD
-        //please refer to page 6 of Operation slides to get some idea
+        //please refer to page 8 of Operation slides to get some idea
     }
     return m;
 }
@@ -45,7 +45,7 @@ int main() {
         //this line should do some operation to achieve summations
         //the left variable and right expression should be UNTOUCHED
         //only the OPERATION to be MODIFIED
-        //please refer to page 6 of Operation slides to get some idea
+        //please refer to page 8 of Operation slides to get some idea
         result = p[i] * power(x, q[i]);
     }
 
